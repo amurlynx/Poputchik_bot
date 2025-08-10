@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from infrastructure.database.repo.announcement import AnnouncementRepo
 from infrastructure.database.repo.users import UserRepo
 from infrastructure.database.setup import create_engine
 
@@ -23,6 +24,12 @@ class RequestsRepo:
         """
         return UserRepo(self.session)
 
+    @property
+    def announcements(self) -> AnnouncementRepo:
+        """
+        The User repository sessions are required to manage user operations.
+        """
+        return AnnouncementRepo(self.session)
 
 if __name__ == "__main__":
     from infrastructure.database.setup import create_session_pool
